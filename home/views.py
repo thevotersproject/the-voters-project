@@ -3,18 +3,18 @@ from django.shortcuts import render, redirect
 
 # Create your views here.
 def home(request):
-    return render(request, 'home.html')
+    return render(request, 'home/home.html')
 
 
 def user(request):
-    return render(request, 'user.html')
+    return render(request, 'home/user.html')
 
 
 def voter(request):
     if request.method == "POST":
         code = request.POST['event_code']
         print(code)
-    return render(request, 'voter.html')
+    return render(request, 'home/voter.html')
 
 
 def login(request):
@@ -25,4 +25,4 @@ def register(request):
     if request.method == "POST":
         username = request.POST['username']
         print(username)
-    return render(request, 'register.html')
+    return render(request, 'home/register.html')

@@ -3,11 +3,7 @@ from django.shortcuts import render, redirect
 
 # Create your views here.
 def home(request):
-    return render(request, 'home/home.html')
-
-
-def user(request):
-    return render(request, 'home/user.html')
+    return render(request, 'home/index.html')
 
 
 def voter(request):
@@ -18,7 +14,7 @@ def voter(request):
 
 
 def login(request):
-    return redirect('login/mainuser')
+    pass
 
 
 def register(request):

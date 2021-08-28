@@ -6,14 +6,17 @@
 </head>
 <body>
 
-    {% extends 'home/base.html' %}
-
+    {% extends 'home/index.html' %}
     {% block content %}
-        <form action="" method="POST">
-            {% csrf_token %}
-            <input type="text" name="event_code" placeholder="Event Code">
-            <input type="submit">
-        </form>
+        {% include 'home/navbar.html' %}
+        <div class="welcome-area wow fadeInUp">
+            <form action="" method="POST">
+                {% csrf_token %}
+                <input type="text" name="event_code" placeholder="Event Code"><br>
+                <input type="submit">
+            </form>
+        </div>
+
     {% endblock %}
 
 </body>

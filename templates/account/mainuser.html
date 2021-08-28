@@ -5,6 +5,9 @@
     <title>Main User</title>
 </head>
 <body>
-
+    {% extends 'home/index.html' %}
+    {% block content %}
+        {% include 'home/navbar.html' %}
+    {% endblock %}
 </body>
 </html>

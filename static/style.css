@@ -112,9 +112,9 @@ a.single-about:hover,
 a.single-about, 
 .main-menu li ul li a
  {
-  -webkit-transition: all .3s;
-  -o-transition: all .3s;
-  transition: all .3s;
+  -webkit-transition: all .2s;
+  -o-transition: all .2s;
+  transition: all .2s;
 }
 
 /*===================
@@ -827,15 +827,15 @@ a.gradient-btn:hover:after{
   width: 100%;
 }
 
-::-webkit-input-placeholder{color:#fff}
-:-ms-input-placeholder{color:#fff}
-::-ms-input-placeholder{color:#fff}
-::placeholder{color:#fff}
+::-webkit-input-placeholder{color:indianred}
+:-ms-input-placeholder{color:indianred}
+::-ms-input-placeholder{color:indianred}
+::placeholder{color:indianred}
 
-input[type=text], select {
-  width: 250px;
+input[type=text]{
+  width: 80%;
   padding: 12px 20px;
-  margin: 8px 0;
+  margin: 8px 20px;
   display: inline-block;
   border: none;
   border-bottom: 2px solid red;
@@ -846,9 +846,9 @@ input[type=text], select {
 }
 
 input[type=password] {
-  width: 250px;
+  width: 80%;
   padding: 12px 20px;
-  margin: 8px 0;
+  margin: 8px 20px;
   display: inline-block;
   border: none;
   border-bottom: 2px solid red;
@@ -858,10 +858,10 @@ input[type=password] {
   transition: width 0.4s ease-in-out;
 }
 
-input[type=email], select {
-  width: 250px;
+input[type=email] {
+  width: 80%;
   padding: 12px 20px;
-  margin: 8px 0;
+  margin: 8px 20px;
   display: inline-block;
   border: none;
   border-bottom: 2px solid red;
@@ -872,11 +872,11 @@ input[type=email], select {
 }
 
 input[type=submit] {
-  width: 100%;
+  width: 20%;
   background-color: #4CAF50;
   color: black;
   padding: 14px 20px;
-  margin: 8px 0;
+  margin: 8px 20px;
   border: none;
   border-radius: 4px;
   cursor: pointer;
@@ -887,28 +887,25 @@ input[type=submit]:hover {
 }
 
 input[type=text]:focus {
-  width: 100%;
+  width: 90%;
   background-color: lightblue;
   border: none;
   border-bottom: 2px solid #555;
 }
 
 input[type=email]:focus {
-  width: 100%;
+  width: 90%;
   background-color: lightblue;
   border: none;
   border-bottom: 2px solid #555;
 }
 
 input[type=password]:focus {
-  width: 100%;
+  width: 90%;
   background-color: lightblue;
   border: none;
   border-bottom: 2px solid #555;
 }
 
-::placeholder {
-  color: red;
-  opacity: 1;
-}
+.footer-form input[type=text]
 /*===================================== end =================================*/

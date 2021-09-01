@@ -26,6 +26,7 @@ def register(request):
         if form.is_valid():
             username = form.cleaned_data['username']
             messages.success(request, f'Admin Created for {username}')
+            form.save()
             return redirect('home')
     else:
         form = AdminRegisterForm()

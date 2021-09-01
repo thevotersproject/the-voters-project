@@ -1,0 +1,14 @@
+{% extends 'home/index.html' %}
+
+{% block content %}
+    {% include 'home/navbar.html' %}
+    <div class="welcome-area wow fadeInUp">
+        <form action="" method="POST">
+            {% csrf_token %}
+            <input type="text" name="username" placeholder="Username" required><br>
+            <input type="password" name="password" placeholder="Password" required><br>
+{#            <input type="submit" disabled>#}
+            <a href="mainuser">Login</a>
+        </form>
+    </div>
+{% endblock %}

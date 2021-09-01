@@ -30,12 +30,13 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'django.contrib.admin',
+    'home.apps.HomeConfig',
+    'crispy_forms',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'home',
 ]
 
 MIDDLEWARE = [
@@ -82,6 +83,21 @@ DATABASES = {
     }
 }
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'Voting',
+#         'USER': 'root',
+#         'PASSWORD': '',
+#         'HOST': 'localhost',
+#         'PORT': '3306',
+#         'OPTIONS': {
+#             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"
+#         }
+#
+#     }
+# }
+
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
 
@@ -126,3 +142,5 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'assets')
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'

@@ -1,9 +1,9 @@
 {% load static %}
-
+{% static "img" as Baseimg %}
 <!doctype html>
 <html lang="en">
   <head>
-    <title>Cyptian</title>
+    <title>Blochain Voting: The Voter's Project</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -11,7 +11,7 @@
     <!-- carousel CSS -->
     <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}">
     <!--header icon CSS -->
-    <link rel="icon" href="{% static 'img/fabicon.png' %}">
+    <link rel="icon" href="{% static 'img/Logo-Test.png' %}">
     <!-- animations CSS -->
     <link rel="stylesheet" href="{% static 'css/animate.min.css' %}">
     <!-- font-awsome CSS -->
@@ -30,6 +30,11 @@
     <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
   </head>
   <body>
+  {% if messages %}
+      {% for message in messages %}
+          <script>alert('{{ message }}')</script>
+      {% endfor %}
+  {% endif %}
   {% block content %}
       {% include 'home/navbar.html' %}
     <!--welcome area start-->
@@ -40,15 +45,12 @@
                 <div class="col-12 col-md-6 align-self-center">
                     <div class="welcome-right">
                         <div class="welcome-text">
-                             <h1>Fast Growing ICO 
-                            Agency for Blockchain
-                            Investors and Founders </h1>
-                            <h4>Sifting through teaspoons of clay and sand scraped from the 
-    floors of caves, German researchers have managed.</h4>
+                             <h1>Video</h1>
+                            <h4>This is where video goes</h4>
                         </div>
                         <div class="welcome-btn">
-                            <a href="#" class="gradient-btn v2 mr-20">Register for the ICO</a>
-                            <a href="#" class="gradient-btn v2">Download Whitepaper</a>
+                            <a href="login" class="gradient-btn v2 mr-20">Admin</a>
+                            <a href="voter" class="gradient-btn v2">I'm Voter</a>
                         </div>
                     </div>
                 </div>
@@ -69,7 +71,7 @@
             <div class="row">
                 <div class="col-12 text-center">
                     <div class="heading">
-                        <h5>We are featured in</h5>
+                        <h5>We are</h5>
                     </div>
                     <div class="space-30"></div>
                 </div>
@@ -77,46 +79,13 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="logo-carousel owl-carousel text-center">
+                        {% for img in imgs %}
                         <div class="single-logo-wrapper">
                             <div class="single-item">
-                                <img src="{% static 'img/c-logo-1.png' %}" alt="">
+                                <img src="{{Baseimg}}/{{ img}}" alt="">
                             </div>
                         </div>
-                        <div class="single-logo-wrapper">
-                            <div class="single-item">
-                                <img src="{% static 'img/c-logo-2.png' %}" alt="">
-                            </div>
-                        </div>
-                        <div class="single-logo-wrapper">
-                            <div class="single-item">
-                                <img src="{% static 'img/c-logo-3.png' %}" alt="">
-                            </div>
-                        </div>
-                        <div class="single-logo-wrapper">
-                            <div class="single-item">
-                                <img src="{% static 'img/c-logo-4.png' %}" alt="">
-                            </div>
-                        </div>
-                        <div class="single-logo-wrapper">
-                            <div class="single-item">
-                                <img src="{% static 'img/c-logo-5.png' %}" alt="">
-                            </div>
-                        </div>
-                        <div class="single-logo-wrapper">
-                            <div class="single-item">
-                                <img src="{% static 'img/c-logo-3.png' %}" alt="">
-                            </div>
-                        </div>
-                        <div class="single-logo-wrapper">
-                            <div class="single-item">
-                                <img src="{% static 'img/c-logo-2.png' %}" alt="">
-                            </div>
-                        </div>
-                        <div class="single-logo-wrapper">
-                            <div class="single-item">
-                                <img src="{% static 'img/c-logo-5.png' %}" alt="">
-                            </div>
-                        </div>
+                        {% endfor %}
                     </div>
                 </div>
             </div>
@@ -129,16 +98,15 @@
                 </div>
                 <div class="col-12 col-md-6 align-self-center">
                     <div class="heading">
-                        <h5>We are featured in</h5>
+                        <h5>We are</h5>
                     </div>
                     <div class="about-mid-text">
-                        <h1>A Platform for Exchange 
-                        Cyrptocurrency and shares</h1>
+                        <h1>About Us</h1>
                         <div class="space-10"></div>
-                        <p>Mauna Loa, the biggest volcano on Earth  half the Island of Hawaii. Just 35 miles to the northeast, Mauna Kea, known to native Hawaiians as Mauna a Wakea, rises nearly 14,000 feet above sea level.  If they are so close together, how did they develop in two parallel tracks .Sifting through teaspoons of clay and sand scraped from the floors of caves.</p>
+                        <p>Project Description</p>
                     </div>
                     <div class="space-30"></div>
-                    <a href="#" class="gradient-btn v2 about-btn"> <i class="fa fa-send-o"></i> join us on telegraph</a>
+                    <a href="#" class="gradient-btn v2 about-btn"> <i class="fa fa-send-o"></i>Visit our Repo</a>
                 </div>
             </div>
         </div>
@@ -434,7 +402,7 @@
                 <div class="col-12 col-sm-6 col-lg-4">
                     <div class="single-footer">
                         <div class="logo-area footer">
-                            <a href="#"><img src="{% static 'img/logo-top.png' %}" alt=""></a>
+                            <a href="#"><img src="{% static 'img/Logo-Test.png' %}" alt=""></a>
                         </div>
                         <div class="space-20"></div>
                         <p>Swimming hundreds of feet beneath the ocean’s surface in many parts of the world are prolific architects called giant larvaceans. </p>

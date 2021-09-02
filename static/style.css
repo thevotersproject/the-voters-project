@@ -70,7 +70,6 @@ input:focus, button:focus, textarea:focus {
 
 input, textarea{
   color: #fff;
-  text-transform: capitalize;
 }
 
 a.gradient-btn:hover:after, 

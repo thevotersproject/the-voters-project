@@ -20,24 +20,17 @@
             <input type="submit">
         </form>
 
+        <ul style="background-color: #f8d7da;">
+            {% for i in form %}
+                {% if i.errors %}
+                    {% for j in i.errors %}
+                        <li class="alert alert-danger" style="border:0; line-height: 10px">
+                            {{ j }}
+                        </li>
+                    {% endfor %}
+                {% endif %}
+            {% endfor %}
+        </ul>
 
-{#    {% if messages %}#}
-{#        {% for message in messages %}#}
-{#            <div class="alert alert-{{ message.tags }}" role="alert">#}
-{#                {{ message }}#}
-{#            </div>#}
-{#        {% endfor %}#}
-{#    {% endif %}#}
     </div>
-{#        <form action="" method="POST">#}
-{#            {% csrf_token %}#}
-{#            <input type="text" name="first_name" placeholder="First Name" required><br>#}
-{#            <input type="text" name="last_name" placeholder="Last Name" required><br>#}
-{#            <input type="text" name="username" placeholder="Username" required><br>#}
-{#            <input type="email" name="email" placeholder="Email Address" required><br>#}
-{#            <input type="password" name="password" placeholder="Password" required><br>#}
-{#            <input type="password" name="repassword" placeholder="Confirm Password" required><br>#}
-{#            <input type="text" name="role" placeholder="Role" required><br>#}
-{#            <input type="submit">#}
-{#        </form>#}
 {% endblock %}

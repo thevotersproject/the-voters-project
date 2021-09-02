@@ -6,6 +6,7 @@
         <form action="" method="POST">
             {% csrf_token %}
             {{ form|crispy }}
+            {{ profile|crispy }}
             <input type="submit">
         </form>
     </div>

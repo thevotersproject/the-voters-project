@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .forms import AdminRegisterForm
+from .forms import AdminRegisterForm, AdminProfileForm
 from django.contrib import messages
 
 
@@ -23,11 +23,19 @@ def login(request):
 def register(request):
     if request.method == "POST":
         form = AdminRegisterForm(request.POST)
-        if form.is_valid():
+        profile_form = AdminProfileForm(request.POST)
+        if form.is_valid() and profile_form.is_valid():
+            user = form.save()
+            profile = profile_form.save(commit=False)
+            profile.admin = user
+
+            profile.save()
+
             username = form.cleaned_data['username']
             messages.success(request, f'Admin Created for {username}')
-            form.save()
             return redirect('home')
     else:
         form = AdminRegisterForm()
-    return render(request, 'home/register.html', {'form': form})
+        profile_form = AdminProfileForm(request.POST)
+
+    return render(request, 'home/register.html', {'form': form, 'profile': profile_form})

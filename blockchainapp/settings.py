@@ -32,6 +32,7 @@ INSTALLED_APPS = [
     'django.contrib.admin',
     'home.apps.HomeConfig',
     'crispy_forms',
+    'account.apps.AccountConfig',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',

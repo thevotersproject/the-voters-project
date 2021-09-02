@@ -1,14 +1,33 @@
 {% extends 'home/index.html' %}
-{% load crispy_forms_tags %}
+{% load bootstrap %}
 {% block content %}
     {% include 'home/navbar.html' %}
     <div class="welcome-area wow fadeInUp">
         <form action="" method="POST">
             {% csrf_token %}
-            {{ form|crispy }}
-            {{ profile|crispy }}
+            {% for label in form %}
+                <div style="margin: 10px 0 10px 20px;">
+                {{ label.label }}<br>
+                </div>
+                {{ label }}<br>
+            {% endfor %}
+            {% for label in profile %}
+                <div style="margin: 10px 0 10px 20px;">
+                {{ label.label }}<br>
+                </div>
+                {{ label }}<br>
+            {% endfor %}
             <input type="submit">
         </form>
+
+
+{#    {% if messages %}#}
+{#        {% for message in messages %}#}
+{#            <div class="alert alert-{{ message.tags }}" role="alert">#}
+{#                {{ message }}#}
+{#            </div>#}
+{#        {% endfor %}#}
+{#    {% endif %}#}
     </div>
 {#        <form action="" method="POST">#}
 {#            {% csrf_token %}#}

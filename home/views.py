@@ -34,6 +34,12 @@ def register(request):
             username = form.cleaned_data['username']
             messages.success(request, f'Admin Created for {username}')
             return redirect('home')
+        # else:
+        #     j = ''
+        #     for i in form:
+        #         for j in i.errors:
+        #             print(j)
+        #     messages.error(request, j)
     else:
         form = AdminRegisterForm()
         profile_form = AdminProfileForm(request.POST)

@@ -30,12 +30,12 @@
     <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
   </head>
   <body>
-  {% if messages %}
-      {% for message in messages %}
-          <script>alert('{{ message }}')</script>
-      {% endfor %}
-  {% endif %}
   {% block content %}
+      {% if messages %}
+          {% for message in messages %}
+              <script>alert('{{ message }}')</script>
+          {% endfor %}
+      {% endif %}
       {% include 'home/navbar.html' %}
     <!--welcome area start-->
     <div class="welcome-area wow fadeInUp" id="home">

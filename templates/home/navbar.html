@@ -8,7 +8,7 @@
                 </div>
                 <div class="col-4 col-lg-2">
                     <div class="logo-area">
-                        <a href="/"><img src="{% static 'img/Logo-Test.png' %}" alt=""></a>
+                        <a href="{% url 'home' %}"><img src="{% static 'img/Logo-Test.png' %}" alt=""></a>
                     </div>
                 </div>
                 <div class="col-4 col-lg-8 d-none d-lg-block">
@@ -28,15 +28,26 @@
                 </div>
                 <div class="main-menu">
                         <nav>
-                            <ul>
-                                <li><a>Login</a>
-                                    <ul id="test">
-                                        <li><a href="voter">I'm Voter</a></li>
-                                        <li><a href="register">New Admin</a></li>
-                                        <li><a href="login">Returning Admin</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
+                            {% if user.is_authenticated %}
+                                <ul>
+                                    <li><a href="{% url 'mainuser' %}">Hello {{ user }}</a>
+                                        <ul id="test">
+                                            <li><a href="{% url 'logout' %}">Logout</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            {% else %}
+                                <ul>
+                                    <li><a>Login</a>
+                                        <ul id="test">
+                                            <li><a href="{% url 'voter' %}">I'm Voter</a></li>
+                                            <li><a href="{% url 'register' %}">New Admin</a></li>
+                                            <li><a href="{% url 'login' %}">Returning Admin</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            {% endif %}
+
                         </nav>
                 </div>
             </div>

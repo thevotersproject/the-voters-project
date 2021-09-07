@@ -7,13 +7,13 @@
             {% csrf_token %}
             {% for label in form %}
                 <div style="margin: 10px 0 10px 20px;">
-                {{ label.label }}<br>
+                    {{ label.label }}<br>
                 </div>
                 {{ label }}<br>
             {% endfor %}
             {% for label in profile %}
                 <div style="margin: 10px 0 10px 20px;">
-                {{ label.label }}<br>
+                    {{ label.label }}<br>
                 </div>
                 {{ label }}<br>
             {% endfor %}

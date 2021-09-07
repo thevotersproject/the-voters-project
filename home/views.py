@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from .forms import AdminRegisterForm, AdminProfileForm
-from django.contrib import messages
+from django.contrib import messages, auth
 
 
 # Create your views here.
@@ -17,7 +17,20 @@ def voter(request):
 
 
 def login(request):
-    return render(request, 'home/login.html')
+    if request.method == "POST":
+        username = request.POST['username']
+        password = request.POST['password']
+
+        user = auth.authenticate(username=username, password=password)
+
+        if user is not None:
+            auth.login(request, user)
+            return redirect('mainuser')
+        else:
+            messages.info(request, 'Invalid Login')
+            return redirect('login')
+    else:
+        return render(request, 'home/login.html')
 
 
 def register(request):
@@ -45,3 +58,8 @@ def register(request):
         profile_form = AdminProfileForm(request.POST)
 
     return render(request, 'home/register.html', {'form': form, 'profile': profile_form})
+
+
+def logout(request):
+    auth.logout(request)
+    return redirect('/')

@@ -1,3 +1,4 @@
+{% extends 'account/base.html' %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,10 +6,16 @@
     <title>Main User</title>
 </head>
 <body>
-    {% extends 'home/index.html' %}
     {% block content %}
-        {% include 'home/navbar.html' %}
+        {% include 'account/navbar.html' %}
+        <h1>Hello, Profile!</h1>
 
+{#        {% include 'home/navbar.html' %}#}
+{#        <div class="welcome-area wow fadeInUp">#}
+{#            <a href="event">Event</a>#}
+{#            <a href="candidate">Candidate</a>#}
+{#            <a href="user">User</a>#}
+{#        </div>#}
     {% endblock %}
 </body>
 </html>

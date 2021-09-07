@@ -1,0 +1,45 @@
+{% load static %}
+<nav class="navbar navbar-dark bg-dark">
+    <div class="container-fluid">
+        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
+                aria-controls="offcanvasNavbar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+    </div>
+</nav>
+<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+    <div class="bg-dark p-4">
+        <h5 class="text-white h4">Blockchain Voting</h5>
+        <span class="text-muted">Toggleable</span>
+    </div>
+    <div class="offcanvas-body">
+        <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+            <li class="nav-item">
+                <a class="nav-link active" href="{% url 'user' %}">Users</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'event' %}">Events</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'candidate' %}">Candidates</a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown" id="offcanvasNavbarDropdown" role="button" aria-expanded="false">
+                    {{ user }}
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="offcanvasNavbarDropdown">
+                    <li><a class="dropdown-item" href="{% url 'mainuser' %}">Profile</a></li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+                    <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    <div>
+        <a href="{% url 'home' %}"><img src="{% static 'img/Logo-Test.png' %}" alt=""></a>
+    </div>
+
+</div>

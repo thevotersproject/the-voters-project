@@ -1,0 +1,75 @@
+{% extends 'account/base.html' %}
+
+{% block content %}
+    {% include 'account/navbar.html' %}
+    <h1>Hello, Candidate!</h1>
+    <div class="container">
+        <div class="col align-self-center">
+            <table class="table table-hover table-dark">
+                <tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                </tr>
+                {% for i in candidates %}
+                    <tr class="candidate" data-bs-toggle="modal" data-bs-target="#candidateModal"
+                        data-bs-name="{{ i.candidateFirstname }} {{ i.candidateLastname }}"
+                        data-bs-img="{{ i.candidateImg }}"
+                        data-bs-details="{{ i.candidateDetails }}">
+                        <td>{{ i.candidateFirstname }}</td>
+                        <td>{{ i.candidateLastname }}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+
+    <div class="modal fade" id="candidateModal" tabindex="-1" aria-labelledby="candidateModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body">
+                    <h2 id="candidateName">Name</h2>
+                    <h3 id="candidateDetails">Details</h3>
+                    <h3 id="candidateImage">Image</h3>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Update</button>
+                    <button type="button" class="btn btn-danger">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script>
+        var candidateModal = document.getElementById('candidateModal')
+        candidateModal.addEventListener('show.bs.modal', function (event) {
+            // Button that triggered the modal
+            var button = event.relatedTarget
+            // Extract info from data-bs-* attributes
+            var candidateName = button.getAttribute('data-bs-name')
+            var candidateDetails = button.getAttribute('data-bs-details')
+            var candidateImage = button.getAttribute('data-bs-img')
+            // If necessary, you could initiate an AJAX request here
+            // and then do the updating in a callback.
+            //
+            // Update the modal's content.
+            var modalTitle = candidateModal.querySelector('.modal-title')
+            var modalBodyName = candidateModal.querySelector('.modal-body #candidateName')
+            var modalBodyDetails = candidateModal.querySelector('.modal-body #candidateDetails')
+            var modalBodyImage = candidateModal.querySelector('.modal-body #candidateImage')
+
+            modalTitle.textContent = 'New message to ' + candidateName
+            modalBodyName.textContent = candidateName
+            modalBodyDetails.textContent = candidateDetails
+            modalBodyImage.textContent = candidateImage
+        })
+
+    </script>
+{% endblock %}

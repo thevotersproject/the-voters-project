@@ -5,5 +5,6 @@ urlpatterns = [
     path('', views.mainuser, name='mainuser'),
     path('event', views.event, name='event'),
     path('candidate', views.candidate, name='candidate'),
-    path('user', views.user, name='user'),
+    path('voter', views.voter, name='voter'),
+    path('editevent/<int:code>', views.editevent, name='editevent')
 ]

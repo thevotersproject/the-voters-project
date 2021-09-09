@@ -9,5 +9,8 @@
             <input type="password" name="password" placeholder="Password" required><br>
             <input type="submit">
         </form>
+    {% for i in messages %}
+        <label>{{ i }}</label>
+    {% endfor %}
     </div>
 {% endblock %}

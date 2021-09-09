@@ -1,0 +1,68 @@
+{% extends 'account/base.html' %}
+<link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/product/">
+
+
+{% block content %}
+    {% include 'account/navbar.html' %}
+    <a href="{% url 'event' %}">
+        <button type="button" class="btn-close" aria-label="Close"></button>
+    </a>
+    <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light"
+         style="padding: 1rem!important;">
+        <div class="col-md-5 p-lg-5 mx-auto my-5">
+            <h1 class="display-4 fw-normal">Event Name</h1>
+            <p class="lead">Event Position</p>
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" id="eventCode" value="Event Code" readonly>
+                <button class="btn btn-outline-secondary bi bi-clipboard" type="button" onclick="copy()"></button>
+            </div>
+            <p class="alert alert-info" id='clip' style='display: none'>Copied to Clipboard</p>
+            <a class="btn btn-outline-secondary" href="#">Start Date</a>
+            <a class="btn btn-outline-secondary" href="#">End Date</a>
+        </div>
+    </div>
+
+    <div class="d-md-flex flex-md-equal w-100 my-md-3 ps-md-3">
+        <div class="bg-dark me-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center text-white overflow-hidden">
+            <div class="my-3 py-3">
+                <h2 class="display-5">Candidates</h2>
+                <p class="lead">Candidates for the position</p>
+            </div>
+            <div>
+                {% include 'account/candidateview.html' %}
+            </div>
+            <div class="d-flex justify-content-center">
+                <button type="button" class="btn btn-info">Add Candidate</button>
+            </div>
+        </div>
+        <div class="bg-light me-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden">
+            <div class="my-3 p-3">
+                <h2 class="display-5">Voters</h2>
+                <p class="lead">Voters on the event</p>
+            </div>
+            <div>
+                {% include 'account/voterview.html' %}
+            </div>
+            <div class="d-flex justify-content-center">
+                <button type="button" class="btn btn-info">Add Voter</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function copy() {
+            var copyText = document.getElementById("eventCode");
+            var text = document.getElementById("clip");
+
+            copyText.select();
+            copyText.setSelectionRange(0, 99999);
+
+            navigator.clipboard.writeText(copyText.value);
+            text.style.display = "block";
+            setTimeout(function () {
+                text.style.display = "none";
+            }, 700);
+
+        }
+    </script>
+{% endblock %}

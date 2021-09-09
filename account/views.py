@@ -7,7 +7,10 @@ from home.models import AdminProfile
 
 # Create your views here.
 def mainuser(request):
-    profile = AdminProfile.objects.filter(admin_id=1)
+    if request.POST:
+        profile = AdminProfile.objects.get(admin_id=1)
+        return render(request, 'account/mainuser.html', {'profile': profile})
+    profile = AdminProfile.objects.get(admin_id=1)
     return render(request, 'account/mainuser.html', {'profile': profile})
 
 
@@ -21,6 +24,12 @@ def candidate(request):
     return render(request, 'account/candidate.html', {'candidates': candidates})
 
 
-def user(request):
-    users = UserTable.objects.filter(admin_id=1)
-    return render(request, 'account/user.html', {'users': users})
+def voter(request):
+    voters = VoterTable.objects.filter(admin_id=1)
+    return render(request, 'account/voter.html', {'voters': voters})
+
+
+def editevent(request, code):
+    current_event = EventTable.objects.get(eventUUID=code)
+    print(current_event)
+    return render(request, 'account/editevent.html', {'current_event': current_event})

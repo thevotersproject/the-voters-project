@@ -1,0 +1,13 @@
+{% extends 'account/base.html' %}
+
+{% block content %}
+    <a href="{% url 'event' %}">
+        <button type="button" class="btn-close" aria-label="Close"></button>
+    </a>
+    <div class="d-flex justify-content-center">
+        <form action="" method="POST">
+            {% csrf_token %}
+            <input type="submit" class="form-control btn-outline-success">
+        </form>
+    </div>
+{% endblock %}

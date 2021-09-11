@@ -1,20 +1,21 @@
 <div class="container">
     <div class="col align-self-center">
-        <table class="table table-hover table-light">
-            <tr class="table-dark">
-                <th>First Name</th>
-                <th>Last Name</th>
-            </tr>
-            {% for i in voters %}
-                <tr class="voter" data-bs-toggle="modal" data-bs-target="#voterModal"
-                    data-bs-name="{{ i.voterFirstname }} {{ i.voterLastname }}"
-                    data-bs-img="{{ i.voterImg }}"
-                    data-bs-print="{{ i.voterFingerprint }}">
-                    <td>{{ i.voterFirstname }}</td>
-                    <td>{{ i.voterLastname }}</td>
+        {% if voters %}
+            <table class="table table-hover table-light">
+                <tr class="table-dark">
+                    <th>First Name</th>
+                    <th>Last Name</th>
                 </tr>
-            {% endfor %}
-        </table>
+                {% for i in voters %}
+                    <tr class="voter" data-bs-toggle="modal" data-bs-target="#voterModal"
+                        data-bs-name="{{ i.voterFirstname }} {{ i.voterLastname }}"
+                        data-bs-img="{{ i.voterImg.url }}">
+                        <td>{{ i.voterFirstname }}</td>
+                        <td>{{ i.voterLastname }}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+        {% endif %}
     </div>
 
 </div>
@@ -28,14 +29,16 @@
             </div>
 
             <div class="modal-body">
-                <h2 id="voterName">Name</h2>
-                <h3 id="voterPrint">print</h3>
-                <h3 id="voterImage">Image</h3>
+                <h3 id="voterImage"></h3>
+                <h2 id="voterName" class="text-center">Name</h2>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Update</button>
-                <button type="button" class="btn btn-danger">Delete</button>
+                {% url 'voters' as voters %}
+                {% if request.path == voters %}
+                    <button type="button" class="btn btn-primary">Update</button>
+                    <button type="button" class="btn btn-danger">Delete</button>
+                {% endif %}
             </div>
         </div>
     </div>
@@ -45,25 +48,39 @@
 <script>
     var voterModal = document.getElementById('voterModal')
     voterModal.addEventListener('show.bs.modal', function (event) {
-        // Button that triggered the modal
+
         var button = event.relatedTarget
-        // Extract info from data-bs-* attributes
+
         var voterName = button.getAttribute('data-bs-name')
-        var voterPrint = button.getAttribute('data-bs-print')
         var voterImage = button.getAttribute('data-bs-img')
-        // If necessary, you could initiate an AJAX request here
-        // and then do the updating in a callback.
-        //
-        // Update the modal's content.
+
+
         var modalTitle = voterModal.querySelector('.modal-title')
         var modalBodyName = voterModal.querySelector('.modal-body #voterName')
-        var modalBodyPrint = voterModal.querySelector('.modal-body #voterPrint')
-        var modalBodyImage = voterModal.querySelector('.modal-body #voterImage')
 
         modalTitle.textContent = 'New message to ' + voterName
         modalBodyName.textContent = voterName
-        modalBodyPrint.textContent = voterPrint
-        modalBodyImage.textContent = voterImage
+
+        function display(voterImage) {
+            let location = document.getElementById("voterImage");
+
+            var existingImg = location.getElementsByTagName("img");
+
+            if (existingImg.length) {
+                existingImg[0].src = voterImage
+            } else {
+
+                let imgElement = document.createElement("img");
+                imgElement.src = voterImage
+                imgElement.width = 150
+                imgElement.height = 150
+                imgElement.className = "img-thumbnail rounded mx-auto d-block"
+                location.append(imgElement);
+            }
+
+        }
+
+        display(voterImage);
     })
 
 </script>

@@ -9,30 +9,34 @@
 {% block content %}
     {% include 'account/navbar.html' %}
 
-    <form class="row g-3" style="width:60%; margin: 5% 0 0 17%;" method="POST">
+    <form class="row g-3" style="width:60%; margin: 5% 0 0 17%;" method="POST" id="profile">
+        {% csrf_token %}
         <div class="col-12">
-            <label class="form-label d-flex justify-content-center">{{ profile.admin.username }}</label>
+            <label class="form-label d-flex justify-content-center" id="username">{{ profile.admin.username }}</label>
             <label class="form-label d-flex justify-content-center">{{ profile.admin.email }} <a href="">Change Email
             </a></label>
         </div>
         <div class="col-md-6">
             <label for="inputFirstname" class="form-label">First Name</label>
-            <input type="text" class="form-control" id="inputFirstname" value="{{ profile.admin.first_name }}">
+            <input type="text" class="form-control" name="firstname" id="inputFirstname"
+                   value="{{ profile.admin.first_name }}">
         </div>
         <div class="col-md-6">
             <label for="inputLastname" class="form-label">Last Name</label>
-            <input type="text" class="form-control" id="inputLastname" value="{{ profile.admin.last_name }}">
+            <input type="text" class="form-control" name="lastname" id="inputLastname"
+                   value="{{ profile.admin.last_name }}">
         </div>
         <div class="col-12">
             <label for="inputRole" class="form-label">Role</label>
-            <input type="text" class="form-control" id="inputRole" value="{{ profile.role }}">
+            <input type="text" class="form-control" name="role" id="inputRole" value="{{ profile.role }}">
         </div>
         <div class="col-lg-12">
             <label for="inputBio" class="form-label">Bio</label>
-            <textarea type="text" class="form-control" id="inputBio" style="height:100px">{{ profile.bio }}</textarea>
+            <textarea type="text" class="form-control" form="profile" name="bio" id="inputBio"
+                      style="height:100px">{{ profile.bio }}</textarea>
         </div>
         <div class="col-12 d-flex justify-content-center">
-            <button type="submit" class="btn btn-primary" href="">Update</button>
+            <button type="submit" class="btn btn-primary">Update</button>
         </div>
     </form>
 

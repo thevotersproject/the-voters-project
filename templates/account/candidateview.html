@@ -1,20 +1,23 @@
 <div class="container">
     <div class="col align-self-center">
-        <table class="table table-hover table-light">
-            <tr class="table-dark">
-                <th>First Name</th>
-                <th>Last Name</th>
-            </tr>
-            {% for i in candidates %}
-                <tr class="candidate" data-bs-toggle="modal" data-bs-target="#candidateModal"
-                    data-bs-name="{{ i.candidateFirstname }} {{ i.candidateLastname }}"
-                    data-bs-img="{{ i.candidateImg }}"
-                    data-bs-details="{{ i.candidateDetails }}">
-                    <td>{{ i.candidateFirstname }}</td>
-                    <td>{{ i.candidateLastname }}</td>
+        {% if candidates %}
+            <table class="table table-hover table-light">
+                <tr class="table-dark">
+                    <th>First Name</th>
+                    <th>Last Name</th>
                 </tr>
-            {% endfor %}
-        </table>
+                {% for i in candidates %}
+                    <tr class="candidate" data-bs-toggle="modal" data-bs-target="#candidateModal"
+                        data-bs-name="{{ i.candidateFirstname }} {{ i.candidateLastname }}"
+                        data-bs-img="{{ i.candidateImg.url }}"
+                        data-bs-details="{{ i.candidateDetails }}">
+                        <td>{{ i.candidateFirstname }}</td>
+                        <td>{{ i.candidateLastname }}</td>
+                    </tr>
+                {% endfor %}
+
+            </table>
+        {% endif %}
     </div>
 
 </div>
@@ -28,14 +31,17 @@
             </div>
 
             <div class="modal-body">
-                <h2 id="candidateName">Name</h2>
-                <h3 id="candidateDetails">Details</h3>
-                <h3 id="candidateImage">Image</h3>
+                <h3 id="candidateImage"></h3>
+                <h2 id="candidateName" class="text-center">Name</h2>
+                <h3 id="candidateDetails" class="text-center">Details</h3>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Update</button>
-                <button type="button" class="btn btn-danger">Delete</button>
+                {% url 'candidate' as candidate %}
+                {% if request.path == candidate %}
+                    <button type="button" class="btn btn-primary">Update</button>
+                    <button type="button" class="btn btn-danger">Delete</button>
+                {% endif %}
             </div>
         </div>
     </div>
@@ -44,25 +50,38 @@
 <script>
     var candidateModal = document.getElementById('candidateModal')
     candidateModal.addEventListener('show.bs.modal', function (event) {
-        // Button that triggered the modal
         var button = event.relatedTarget
-        // Extract info from data-bs-* attributes
+
         var candidateName = button.getAttribute('data-bs-name')
         var candidateDetails = button.getAttribute('data-bs-details')
         var candidateImage = button.getAttribute('data-bs-img')
-        // If necessary, you could initiate an AJAX request here
-        // and then do the updating in a callback.
-        //
-        // Update the modal's content.
+
         var modalTitle = candidateModal.querySelector('.modal-title')
         var modalBodyName = candidateModal.querySelector('.modal-body #candidateName')
         var modalBodyDetails = candidateModal.querySelector('.modal-body #candidateDetails')
-        var modalBodyImage = candidateModal.querySelector('.modal-body #candidateImage')
 
         modalTitle.textContent = 'New message to ' + candidateName
         modalBodyName.textContent = candidateName
         modalBodyDetails.textContent = candidateDetails
-        modalBodyImage.textContent = candidateImage
+
+        function display(candidateImage) {
+            let location = document.getElementById("candidateImage");
+
+            var existingImg = location.getElementsByTagName("img");
+
+            if (existingImg.length) {
+                existingImg[0].src = candidateImage
+            } else {
+                let imgElement = document.createElement("img");
+                imgElement.src = candidateImage
+                imgElement.width = 150
+                imgElement.height = 150
+                imgElement.className = "img-thumbnail rounded mx-auto d-block"
+                location.append(imgElement);
+            }
+        }
+
+        display(candidateImage)
     })
 
 </script>

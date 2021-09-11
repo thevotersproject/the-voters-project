@@ -2,9 +2,9 @@
 
 {% block content %}
     {% include 'account/navbar.html' %}
-    <h1>Hello, Candidate!</h1>
+    <h4 class="text-center">Candidates List</h4>
     {% include 'account/candidateview.html' %}
     <div class="d-flex justify-content-center">
-        <button type="button" class="btn btn-info">Add Candidate</button>
+        <a class="btn btn-outline-secondary" href="{% url 'add_candidate' %}">Add Candidate</a>
     </div>
 {% endblock %}

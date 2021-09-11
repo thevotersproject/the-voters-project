@@ -29,7 +29,6 @@ class CandidateTable(models.Model):
 
 
 class EventTable(models.Model):
-    id = models.BigIntegerField(primary_key=True)
     admin = models.ForeignKey(User, default=5, on_delete=models.CASCADE)
     eventName = models.CharField(max_length=100)
     eventDetails = models.TextField()

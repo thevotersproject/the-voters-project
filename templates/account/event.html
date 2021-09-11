@@ -2,39 +2,34 @@
 
 {% block content %}
     {% include 'account/navbar.html' %}
-    <h1>Hello, Event!</h1>
+    <h4 class="text-center">Events List</h4>
     <div class="container">
         <div class="col align-self-center">
-            <table class="table table-hover table-light">
-                <tr class="table-dark">
-                    <th>Event Name</th>
-                    <th>Position</th>
-                    <th>Event Code</th>
-                    <th>Candidates</th>
-                    <th>Voters</th>
-                    <th></th>
-                </tr>
-                {% for i in events %}
-                    <tr onclick="window.location='editevent';">
-                        <td>{{ i.eventName }}</td>
-                        <td>{{ i.eventPosition }}</td>
-                        <td>{{ i.eventUUID }}</td>
-                        <td></td>
-                        <td></td>
-                        {% if datetime.now >= i.eventStartDate and datetime.now <= i.eventEndDate %}
-                            <td><a href="">Stop</a></td>
-                        {% elif datetime.now >= i.eventStartDate %}
-                            <td>Ended</td>
-                        {% else %}
-                            <td><a href="">Start</a></td>
-                        {% endif %}
+            {% if events %}
+                <table class="table table-hover table-light">
+                    <tr class="table-dark">
+                        <th>Event Name</th>
+                        <th>Position</th>
+                        <th></th>
                     </tr>
-                {% endfor %}
-
-            </table>
+                    {% for i in events %}
+                        <tr onclick="window.location=`{% url 'editevent' i.id %}`;">
+                            <td>{{ i.eventName }}</td>
+                            <td>{{ i.eventPosition }}</td>
+                            {% if datetime.now >= i.eventStartDate and datetime.now <= i.eventEndDate %}
+                                <td><a href="">Stop</a></td>
+                            {% elif datetime.now >= i.eventStartDate %}
+                                <td>Ended</td>
+                            {% else %}
+                                <td><a href="">Start</a></td>
+                            {% endif %}
+                        </tr>
+                    {% endfor %}
+                </table>
+            {% endif %}
         </div>
         <div class="d-flex justify-content-center">
-            <button type="button" class="btn btn-info">Add Event</button>
+            <a class="btn btn-outline-secondary" href="{% url 'add_event' %}">Add Event</a>
         </div>
     </div>
 {% endblock %}

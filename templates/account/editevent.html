@@ -3,27 +3,29 @@
 
 
 {% block content %}
-    {% include 'account/navbar.html' %}
     <a href="{% url 'event' %}">
         <button type="button" class="btn-close" aria-label="Close"></button>
     </a>
     <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light"
          style="padding: 1rem!important;">
+        <a href="#">
+            <button type="button" class="btn bi-pen" style="text-align: right"> Edit</button>
+        </a>
         <div class="col-md-5 p-lg-5 mx-auto my-5">
-            <h1 class="display-4 fw-normal">Event Name</h1>
-            <p class="lead">Event Position</p>
+            <h1 class="display-4 fw-normal">{{ current_event.eventName }}</h1>
+            <p class="lead">{{ current_event.eventPosition }}</p>
             <div class="input-group mb-3">
-                <input type="text" class="form-control" id="eventCode" value="Event Code" readonly>
+                <input type="text" class="form-control" id="eventCode" value="{{ current_event.eventUUID }}" readonly>
                 <button class="btn btn-outline-secondary bi bi-clipboard" type="button" onclick="copy()"></button>
             </div>
             <p class="alert alert-info" id='clip' style='display: none'>Copied to Clipboard</p>
-            <a class="btn btn-outline-secondary" href="#">Start Date</a>
-            <a class="btn btn-outline-secondary" href="#">End Date</a>
+            <p class="btn btn-outline-secondary">{{ current_event.eventStartDate }}</p>
+            <p class="btn btn-outline-secondary">{{ current_event.eventEndDate }}</p>
         </div>
     </div>
 
     <div class="d-md-flex flex-md-equal w-100 my-md-3 ps-md-3">
-        <div class="bg-dark me-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center text-white overflow-hidden">
+        <div class="bg-secondary me-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden">
             <div class="my-3 py-3">
                 <h2 class="display-5">Candidates</h2>
                 <p class="lead">Candidates for the position</p>
@@ -32,7 +34,7 @@
                 {% include 'account/candidateview.html' %}
             </div>
             <div class="d-flex justify-content-center">
-                <button type="button" class="btn btn-info">Add Candidate</button>
+                <a class="btn btn-outline-dark" href="#">Select Candidate</a>
             </div>
         </div>
         <div class="bg-light me-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden">
@@ -44,7 +46,7 @@
                 {% include 'account/voterview.html' %}
             </div>
             <div class="d-flex justify-content-center">
-                <button type="button" class="btn btn-info">Add Voter</button>
+                <a class="btn btn-outline-success" href="#">Select Voter</a>
             </div>
         </div>
     </div>

@@ -8,9 +8,10 @@
                 </tr>
                 {% for i in candidates %}
                     <tr class="candidate" data-bs-toggle="modal" data-bs-target="#candidateModal"
+                        data-bs-update="{% url 'update_candidate' i.id %}"
+                        data-bs-delete="{% url 'delete_candidate' i.id %}"
                         data-bs-name="{{ i.candidateFirstname }} {{ i.candidateLastname }}"
-                        data-bs-img="{{ i.candidateImg.url }}"
-                        data-bs-details="{{ i.candidateDetails }}">
+                        data-bs-img="{{ i.candidateImg.url }}" data-bs-details="{{ i.candidateDetails }}">
                         <td>{{ i.candidateFirstname }}</td>
                         <td>{{ i.candidateLastname }}</td>
                     </tr>
@@ -39,8 +40,8 @@
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 {% url 'candidate' as candidate %}
                 {% if request.path == candidate %}
-                    <button type="button" class="btn btn-primary">Update</button>
-                    <button type="button" class="btn btn-danger">Delete</button>
+                    <a type="button" class="btn btn-primary" href="" id="updateCandidate">Update</a>
+                    <a type="button" class="btn btn-danger" href="" id="deleteCandidate">Delete</a>
                 {% endif %}
             </div>
         </div>
@@ -52,6 +53,8 @@
     candidateModal.addEventListener('show.bs.modal', function (event) {
         var button = event.relatedTarget
 
+        var updateLink = button.getAttribute('data-bs-update')
+        var deleteLink = button.getAttribute('data-bs-delete')
         var candidateName = button.getAttribute('data-bs-name')
         var candidateDetails = button.getAttribute('data-bs-details')
         var candidateImage = button.getAttribute('data-bs-img')
@@ -59,6 +62,12 @@
         var modalTitle = candidateModal.querySelector('.modal-title')
         var modalBodyName = candidateModal.querySelector('.modal-body #candidateName')
         var modalBodyDetails = candidateModal.querySelector('.modal-body #candidateDetails')
+
+        var upd = candidateModal.querySelector('.modal-footer #updateCandidate')
+        var del = candidateModal.querySelector('.modal-footer #deleteCandidate')
+
+        upd.setAttribute("href", updateLink);
+        del.setAttribute("href", deleteLink);
 
         modalTitle.textContent = 'New message to ' + candidateName
         modalBodyName.textContent = candidateName

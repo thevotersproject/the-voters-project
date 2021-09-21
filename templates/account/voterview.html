@@ -8,6 +8,8 @@
                 </tr>
                 {% for i in voters %}
                     <tr class="voter" data-bs-toggle="modal" data-bs-target="#voterModal"
+                        data-bs-update="{% url 'update_voter' i.id %}"
+                        data-bs-delete="{% url 'delete_voter' i.id %}"
                         data-bs-name="{{ i.voterFirstname }} {{ i.voterLastname }}"
                         data-bs-img="{{ i.voterImg.url }}">
                         <td>{{ i.voterFirstname }}</td>
@@ -36,8 +38,8 @@
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 {% url 'voters' as voters %}
                 {% if request.path == voters %}
-                    <button type="button" class="btn btn-primary">Update</button>
-                    <button type="button" class="btn btn-danger">Delete</button>
+                    <a type="button" class="btn btn-primary" href="" id="updateVoter">Update</a>
+                    <a type="button" class="btn btn-danger" href="" id="deleteVoter">Delete</a>
                 {% endif %}
             </div>
         </div>
@@ -51,12 +53,21 @@
 
         var button = event.relatedTarget
 
+        var updateLink = button.getAttribute('data-bs-update')
+        var deleteLink = button.getAttribute('data-bs-delete')
+
         var voterName = button.getAttribute('data-bs-name')
         var voterImage = button.getAttribute('data-bs-img')
 
 
         var modalTitle = voterModal.querySelector('.modal-title')
         var modalBodyName = voterModal.querySelector('.modal-body #voterName')
+
+        var upd = voterModal.querySelector('.modal-footer #updateVoter')
+        var del = voterModal.querySelector('.modal-footer #deleteVoter')
+
+        upd.setAttribute("href", updateLink);
+        del.setAttribute("href", deleteLink);
 
         modalTitle.textContent = 'New message to ' + voterName
         modalBodyName.textContent = voterName

@@ -144,7 +144,7 @@ def add_candidate(request):
 
 
 def update_candidate(request, code):
-    pass
+    print(code)
 
 
 def delete_candidate(request, code):

@@ -108,6 +108,28 @@
         </div>
     </div>
 
+    <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-dark">
+        <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteEvent">Delete Event</a>
+    </div>
+
+    <div class="modal fade" id="deleteEvent" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    {% csrf_token %}
+                    <p>Do you want to delete the Event?</p>
+                </div>
+                <div class="modal-footer">
+                    <form action="{% url 'delete_event' current_event.id %} " method="POST">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
     <script>
         function copy() {
             var copyText = document.getElementById("eventCode");

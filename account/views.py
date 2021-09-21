@@ -18,9 +18,11 @@ def mainuser(request):
 
         form.first_name = request.POST['firstname']
         form.last_name = request.POST['lastname']
+
         profileForm.role = request.POST['role']
         profileForm.bio = request.POST['bio']
-        return render(request, 'account/mainuser.html', {'profile': profile})
+
+        # return render(request, 'account/mainuser.html', {'profile': profile})
     return render(request, 'account/mainuser.html', {'profile': profile})
 
 
@@ -84,6 +86,14 @@ def edit_event(request, code):
                    'current_voters': current_voters, 'candidates': candidates, 'voters': voters})
 
 
+def delete_event(request, code):
+    current_event = EventTable.objects.get(id=code)
+    if request.method == 'POST':
+        current_event.delete()
+        return redirect('event')
+    return redirect('event')
+
+
 def add_voter(request):
     # form = VoterForm()
     if request.method == 'POST':
@@ -106,6 +116,14 @@ def add_voter(request):
     return render(request, 'account/add_voter.html', context)
 
 
+def update_voter(request, code):
+    pass
+
+
+def delete_voter(request, code):
+    pass
+
+
 def add_candidate(request):
     if request.method == 'POST':
         form = CandidateTable()
@@ -125,13 +143,29 @@ def add_candidate(request):
     return render(request, 'account/add_candidate.html', context)
 
 
+def update_candidate(request, code):
+    pass
+
+
+def delete_candidate(request, code):
+    pass
+
+
 def add_event(request):
     if request.method == 'POST':
-        pass
-        # form = EventForm(request.POST)
-        # if form.is_valid():
-        #     form.save()
+        form = EventTable()
+        form.admin_id = 1
+        form.eventName = request.POST.get('eventName')
+        form.eventDetails = request.POST.get('eventDetails')
+        form.eventPosition = request.POST.get('eventPosition')
+        form.eventStartDate = request.POST.get('start_date')
+        form.eventEndDate = request.POST.get('end_date')
 
-    context = {}
+        try:
+            form.save()
+            print("check")
+            messages.success(request, "Event Added")
+        except Exception as e:
+            print(e)
 
-    return render(request, 'account/add_event.html', context)
+    return render(request, 'account/add_event.html')

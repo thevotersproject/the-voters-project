@@ -4,15 +4,18 @@
     <a href="{% url 'event' %}">
         <button type="button" class="btn-close" aria-label="Close"></button>
     </a>
+
+    {% include 'message.html' %}
     <div class="d-flex justify-content-center">
-        <form action="" method="POST">
+        <form action="" method="POST" id="addEvent">
             {% csrf_token %}
             <label>Event Name</label>
-            <input type="text" class="form-control" name="name" placeholder="Name">
-            <label>Event Details</label>
-            <input type="text" class="form-control" name="details" placeholder="Details">
+            <input type="text" class="form-control" name="eventName" placeholder="Name">
+            <label for="inputDetails" class="form-label">Event Details</label>
+            <textarea type="text" class="form-control" form="addEvent" name="eventDetails" id="inputDetails"
+                      style="height:100px">Enter Details</textarea>
             <label>Position to Vote for</label>
-            <input type="text" class="form-control" name="position" placeholder="Position">
+            <input type="text" class="form-control" name="eventPosition" placeholder="Position">
             <label>Event Start</label>
             <input type="datetime-local" class="form-control" name="start_date">
             <label>Event End</label>

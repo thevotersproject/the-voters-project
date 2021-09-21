@@ -3,6 +3,7 @@
 
 
 {% block content %}
+
     <a href="{% url 'event' %}">
         <button type="button" class="btn-close" aria-label="Close"></button>
     </a>
@@ -11,6 +12,9 @@
         <a href="#">
             <button type="button" class="btn bi-pen" style="text-align: right"> Edit</button>
         </a>
+
+        {% include 'message.html' %}
+
         <div class="col-md-5 p-lg-5 mx-auto my-5">
             <h1 class="display-4 fw-normal">{{ current_event.eventName }}</h1>
             <p class="lead">{{ current_event.eventPosition }}</p>
@@ -34,7 +38,8 @@
                 {% include 'account/candidateview.html' %}
             </div>
             <div class="d-flex justify-content-center">
-                <a class="btn btn-outline-dark" href="#">Select Candidate</a>
+                <a class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#exampleCandidateModal">Select
+                    Candidate</a>
             </div>
         </div>
         <div class="bg-light me-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden">
@@ -46,7 +51,59 @@
                 {% include 'account/voterview.html' %}
             </div>
             <div class="d-flex justify-content-center">
-                <a class="btn btn-outline-success" href="#">Select Voter</a>
+                <a class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#exampleVoterModal">Select
+                    Voter</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="exampleVoterModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <form action="" method="POST">
+                    <div class="modal-body">
+                        {% csrf_token %}
+                        {% for i in current_voters %}
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="current_voters" value="{{ i.id }}"
+                                       id="flexCheckDefault">
+                                <label class="form-check-label" for="flexCheckDefault">
+                                    {{ i }}
+                                </label>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Add Voter</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="exampleCandidateModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <form action="" method="POST">
+                    <div class="modal-body">
+                        {% csrf_token %}
+                        {% for i in current_candidates %}
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="current_candidates"
+                                       value="{{ i.id }}"
+                                       id="flexCheckDefault">
+                                <label class="form-check-label" for="flexCheckDefault">
+                                    {{ i }}
+                                </label>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Add Candidate</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>

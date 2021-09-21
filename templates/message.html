@@ -1,0 +1,15 @@
+{% if messages %}
+    {% for i in messages %}
+        <div class="container">
+            <div class="alert alert-{{ i.tags }} disappear" role="alert">
+                {{ i }}
+            </div>
+        </div>
+        <script>
+            setTimeout(function () {
+                $('.disappear').fadeOut('fast');
+            }, 1000);
+        </script>
+    {% endfor %}
+{% endif %}
+

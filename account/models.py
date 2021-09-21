@@ -45,7 +45,17 @@ class VoterEvent(models.Model):
     voter = models.ForeignKey(VoterTable, on_delete=models.CASCADE)
     event = models.ForeignKey(EventTable, on_delete=models.CASCADE)
 
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=['voter', 'event'], name='voter_event')
+        ]
+
 
 class CandidateEvent(models.Model):
     candidate = models.ForeignKey(CandidateTable, on_delete=models.CASCADE)
     event = models.ForeignKey(EventTable, on_delete=models.CASCADE)
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=['candidate', 'event'], name='candidate_event')
+        ]

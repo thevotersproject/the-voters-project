@@ -7,6 +7,16 @@
     <div class="d-flex justify-content-center">
         <form action="" method="POST">
             {% csrf_token %}
+            <label>Event Name</label>
+            <input type="text" class="form-control" name="name" placeholder="Name">
+            <label>Event Details</label>
+            <input type="text" class="form-control" name="details" placeholder="Details">
+            <label>Position to Vote for</label>
+            <input type="text" class="form-control" name="position" placeholder="Position">
+            <label>Event Start</label>
+            <input type="datetime-local" class="form-control" name="start_date">
+            <label>Event End</label>
+            <input type="datetime-local" class="form-control" name="end_date">
             <input type="submit" class="form-control btn-outline-success">
         </form>
     </div>

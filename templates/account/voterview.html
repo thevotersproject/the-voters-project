@@ -66,9 +66,6 @@
         var upd = voterModal.querySelector('.modal-footer #updateVoter')
         var del = voterModal.querySelector('.modal-footer #deleteVoter')
 
-        upd.setAttribute("href", updateLink);
-        del.setAttribute("href", deleteLink);
-
         modalTitle.textContent = 'New message to ' + voterName
         modalBodyName.textContent = voterName
 
@@ -92,6 +89,10 @@
         }
 
         display(voterImage);
+
+        upd.setAttribute("href", updateLink);
+        del.setAttribute("href", deleteLink);
+
     })
 
 </script>

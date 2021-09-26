@@ -4,16 +4,16 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from .models import *
 from home.models import AdminProfile
-
-
-# from .forms import *
+from django.contrib.auth.decorators import login_required
 
 
 # Create your views here.
+@login_required(login_url='login')
 def mainuser(request):
-    profile = AdminProfile.objects.get(admin_id=1)
+    user = request.user
+    profile = AdminProfile.objects.get(admin_id=user.id)
     if request.method == "POST":
-        form = User()
+        form = User(instance=request)
         profileForm = AdminProfile()
 
         form.first_name = request.POST['firstname']
@@ -26,22 +26,41 @@ def mainuser(request):
     return render(request, 'account/mainuser.html', {'profile': profile})
 
 
+@login_required(login_url='login')
 def event(request):
-    events = EventTable.objects.filter(admin_id=1)
+    user = request.user
+    events = EventTable.objects.filter(admin_id=user.id)
     return render(request, 'account/event.html', {'events': events})
 
 
+@login_required(login_url='login')
 def candidate(request):
-    candidates = CandidateTable.objects.filter(admin_id=1)
+    user = request.user
+    candidates = CandidateTable.objects.filter(admin_id=user.id)
     return render(request, 'account/candidate.html', {'candidates': candidates})
 
 
+@login_required(login_url='login')
 def voter(request):
-    voters = VoterTable.objects.filter(admin_id=1)
+    user = request.user
+    voters = VoterTable.objects.filter(admin_id=user.id)
     return render(request, 'account/voter.html', {'voters': voters})
 
 
+@login_required(login_url='login')
+def event_delete_voter(request, voters):
+    pass
+
+
+@login_required(login_url='login')
+def unselect_candidate(request, candidates):
+    user = request.user
+    current_event = EventTable.objects.get(id=candidates)
+
+
+@login_required(login_url='login')
 def edit_event(request, code):
+    user = request.user
     current_event = EventTable.objects.get(id=code)
     candidates = []
     voters = []
@@ -72,21 +91,37 @@ def edit_event(request, code):
                     messages.error(request, "Duplicate Candidates")
                     print(e)
 
+    if request.POST.get('remove_candidate'):
+        remove_candidate = request.POST.getlist('remove_candidates')
+        if remove_candidate:
+            for i in remove_candidate:
+                deleteCandidate = current_event.candidateevent_set.get(candidate_id=int(i), event_id=code)
+                deleteCandidate.delete()
+
+    if request.POST.get('remove_voter'):
+        remove_voter = request.POST.getlist('remove_voters')
+        if remove_voter:
+            for i in remove_voter:
+                deleteVoter = current_event.voterevent_set.get(voter_id=int(i), event_id=code)
+                deleteVoter.delete()
+
     for i in CandidateEvent.objects.filter(event_id=code):
         candidates.append(CandidateTable.objects.get(id=i.candidate_id))
 
     for i in VoterEvent.objects.filter(event_id=code):
         voters.append(VoterTable.objects.get(id=i.voter_id))
 
-    current_candidates = CandidateTable.objects.filter(admin_id=1)  # send candidates for this event. with event
-    current_voters = VoterTable.objects.filter(admin_id=1)
+    current_candidates = CandidateTable.objects.filter(admin_id=user.id)  # send candidates for this event. with event
+    current_voters = VoterTable.objects.filter(admin_id=user.id)
 
     return render(request, 'account/editevent.html',
                   {'current_event': current_event, 'current_candidates': current_candidates,
                    'current_voters': current_voters, 'candidates': candidates, 'voters': voters})
 
 
+@login_required(login_url='login')
 def delete_event(request, code):
+    user = request.user
     current_event = EventTable.objects.get(id=code)
     if request.method == 'POST':
         current_event.delete()
@@ -94,11 +129,12 @@ def delete_event(request, code):
     return redirect('event')
 
 
+@login_required(login_url='login')
 def add_voter(request):
-    # form = VoterForm()
+    user = request.user
     if request.method == 'POST':
         form = VoterTable()
-        form.admin_id = 1
+        form.admin_id = user.id
         form.voterFirstname = request.POST.get('firstname')
         form.voterLastname = request.POST.get('lastname')
         form.voterFingerprint = request.POST.get('fingerprint')
@@ -108,26 +144,30 @@ def add_voter(request):
             messages.success(request, "Voter created")
         except IntegrityError:
             messages.error(request, "Voter exists with this fingerprint")
-        # print(form.voterFingerprint)
-        # if form.is_valid():
 
     context = {}
 
     return render(request, 'account/add_voter.html', context)
 
 
+@login_required(login_url='login')
 def update_voter(request, code):
+    user = request.user
     pass
 
 
+@login_required(login_url='login')
 def delete_voter(request, code):
+    user = request.user
     pass
 
 
+@login_required(login_url='login')
 def add_candidate(request):
+    user = request.user
     if request.method == 'POST':
         form = CandidateTable()
-        form.admin_id = 1
+        form.admin_id = user.id
         form.candidateFirstname = request.POST.get('firstname')
         form.candidateLastname = request.POST.get('lastname')
         form.candidateDetails = request.POST.get('details')
@@ -143,18 +183,24 @@ def add_candidate(request):
     return render(request, 'account/add_candidate.html', context)
 
 
+@login_required(login_url='login')
 def update_candidate(request, code):
+    user = request.user
     print(code)
 
 
+@login_required(login_url='login')
 def delete_candidate(request, code):
+    user = request.user
     pass
 
 
+@login_required(login_url='login')
 def add_event(request):
+    user = request.user
     if request.method == 'POST':
         form = EventTable()
-        form.admin_id = 1
+        form.admin_id = user.id
         form.eventName = request.POST.get('eventName')
         form.eventDetails = request.POST.get('eventDetails')
         form.eventPosition = request.POST.get('eventPosition')

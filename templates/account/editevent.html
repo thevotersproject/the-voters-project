@@ -40,6 +40,8 @@
             <div class="d-flex justify-content-center">
                 <a class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#exampleCandidateModal">Select
                     Candidate</a>
+                <a class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#removeCandidateModal">Remove
+                    Candidate</a>
             </div>
         </div>
         <div class="bg-light me-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden">
@@ -53,6 +55,62 @@
             <div class="d-flex justify-content-center">
                 <a class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#exampleVoterModal">Select
                     Voter</a>
+                <a class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#removeVoterModal">Remove
+                    Voter</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="removeCandidateModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <form action="" method="POST">
+                    <div class="modal-body">
+                        {% csrf_token %}
+                        {% for i in candidates %}
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="remove_candidates"
+                                       value="{{ i.id }}"
+                                       id="flexCheckDefault">
+                                <label class="form-check-label" for="flexCheckDefault">
+                                    {{ i }}
+                                </label>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary" value=0 name="remove_candidate">Remove Candidate
+                        </button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="removeVoterModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <form action="" method="POST">
+                    <div class="modal-body">
+                        {% csrf_token %}
+                        {% for i in voters %}
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="remove_voters"
+                                       value="{{ i.id }}"
+                                       id="flexCheckDefault">
+                                <label class="form-check-label" for="flexCheckDefault">
+                                    {{ i }}
+                                </label>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary" value=0 name="remove_voter">Remove Voter
+                        </button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>

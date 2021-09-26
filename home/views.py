@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from .forms import AdminRegisterForm, AdminProfileForm
 from django.contrib import messages, auth
+from account.auth import *
 
 
 # Create your views here.
@@ -16,6 +17,7 @@ def voter(request):
     return render(request, 'home/voter.html')
 
 
+@unauthenticated_user
 def login(request):
     if request.method == "POST":
         username = request.POST['username']
@@ -33,6 +35,7 @@ def login(request):
         return render(request, 'home/login.html')
 
 
+@unauthenticated_user
 def register(request):
     if request.method == "POST":
         form = AdminRegisterForm(request.POST)

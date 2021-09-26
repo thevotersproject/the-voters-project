@@ -66,9 +66,6 @@
         var upd = candidateModal.querySelector('.modal-footer #updateCandidate')
         var del = candidateModal.querySelector('.modal-footer #deleteCandidate')
 
-        upd.setAttribute("href", updateLink);
-        del.setAttribute("href", deleteLink);
-
         modalTitle.textContent = 'New message to ' + candidateName
         modalBodyName.textContent = candidateName
         modalBodyDetails.textContent = candidateDetails
@@ -91,6 +88,8 @@
         }
 
         display(candidateImage)
-    })
 
+        upd.setAttribute("href", updateLink);
+        del.setAttribute("href", deleteLink);
+    })
 </script>
